@@ -13,7 +13,7 @@ import { signOut } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 
-const UserAvatar = ({ user }: { user: InferModel<typeof users> }) => {
+export const UserAvatar = ({ user }: { user: InferModel<typeof users> }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
@@ -62,5 +62,3 @@ const UserAvatar = ({ user }: { user: InferModel<typeof users> }) => {
         </DropdownMenu>
     )
 }
-
-export default UserAvatar

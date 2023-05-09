@@ -24,7 +24,7 @@ interface Inputs {
     plan: "free"
 }
 
-const CreateProject = () => {
+export const CreateProject = () => {
     const { register, handleSubmit, formState: { errors }, control } = useForm<Inputs>();
     const [isLoading, setLoading] = useState<boolean>(false)
     const router = useRouter()
@@ -124,5 +124,3 @@ const CreateProject = () => {
         </DialogContent>
     </Dialog>
 }
-
-export default CreateProject

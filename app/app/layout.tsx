@@ -1,4 +1,4 @@
-import UserAvatar from "@/components/user-avatar";
+import { UserAvatar } from "@/components/user-avatar";
 import { getUser } from "@/lib/auth/options";
 import { redirect } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
                 </div>
             </header>
 
-            <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+            <div className="container">
                 <main className="flex w-full flex-1 flex-col overflow-hidden">
                     {children}
                 </main>

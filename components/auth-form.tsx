@@ -19,7 +19,7 @@ interface Alert {
     variant: 'destructive' | 'default'
 }
 
-const AuthForm = () => {
+export const AuthForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const [alert, setAlert] = useState<Alert | null>(null)
     const router = useRouter()
@@ -108,5 +108,3 @@ const AuthForm = () => {
         </Button>
     </>
 }
-
-export default AuthForm;

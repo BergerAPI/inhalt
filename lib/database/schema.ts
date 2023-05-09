@@ -9,7 +9,7 @@ export const projects = pgTable(
     {
         id: varchar("id", { length: 191 }).primaryKey().notNull(),
         owner_id: varchar("owner_id", { length: 191 }).notNull(),
-        name: text("name"),
+        name: text("name").notNull(),
         created_at: timestamp("created_at").notNull().defaultNow(),
     }, (project) => ({
         nameIndex: index("projects__name__idx").on(project.name)
