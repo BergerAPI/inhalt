@@ -10,6 +10,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Loader2, Plus } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
@@ -26,6 +27,7 @@ interface Inputs {
 const CreateProject = () => {
     const { register, handleSubmit, formState: { errors }, control } = useForm<Inputs>();
     const [isLoading, setLoading] = useState<boolean>(false)
+    const router = useRouter()
 
     const onCreate: SubmitHandler<Inputs> = async ({ name, plan }) => {
         setLoading(true)
@@ -39,6 +41,15 @@ const CreateProject = () => {
         })
 
         setLoading(false)
+
+        if (!response?.ok) {
+            return router.push("/")
+        }
+
+        const project = await response.json()
+
+        router.refresh()
+        router.push(`/app/project/${project.id}`)
     }
 
     return <Dialog>
