@@ -1,9 +1,8 @@
-import { getServerSession } from "next-auth"
+import { getServerSideSession } from "@/lib/auth/options"
 import { redirect } from "next/navigation"
-import { authOptions } from "../api/auth/[...nextauth]/route"
 
 const Dashboard = async () => {
-    const session = await getServerSession(authOptions)
+    const session = await getServerSideSession()
 
     if (session === null)
         return redirect("/auth/signin")

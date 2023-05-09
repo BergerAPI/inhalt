@@ -1,6 +1,5 @@
 import AuthForm from "@/components/auth-form";
-import { getServerSession } from "next-auth";
-import { headers, cookies } from 'next/headers'
+import { getServerSideSession } from "@/lib/auth/options";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -10,7 +9,7 @@ export const metadata = {
 };
 
 export default async function SignIn() {
-  const session = await getServerSession()
+  const session = await getServerSideSession()
 
   if (session !== null)
     return redirect("/app")
