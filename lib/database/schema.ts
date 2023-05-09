@@ -17,6 +17,7 @@ export const users = pgTable(
         emailVerified: timestamp("emailVerified"),
         image: varchar("image", { length: 191 }),
         created_at: timestamp("created_at").notNull().defaultNow(),
+        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (user) => ({
         emailIndex: uniqueIndex("users__email__idx").on(user.email),
@@ -42,6 +43,7 @@ export const accounts = pgTable(
         scope: varchar("scope", { length: 191 }),
         token_type: varchar("token_type", { length: 191 }),
         createdAt: timestamp("createdAt").defaultNow().notNull(),
+        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (account) => ({
         providerProviderAccountIdIndex: uniqueIndex(
@@ -57,8 +59,9 @@ export const sessions = pgTable(
         id: varchar("id", { length: 191 }).primaryKey().notNull(),
         sessionToken: varchar("sessionToken", { length: 191 }).notNull(),
         userId: varchar("userId", { length: 191 }).notNull(),
-        expires: date("expires").notNull(),
+        expires: timestamp("expires").notNull(),
         created_at: timestamp("created_at").notNull().defaultNow(),
+        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (session) => ({
         sessionTokenIndex: uniqueIndex("sessions__sessionToken__idx").on(
@@ -73,8 +76,9 @@ export const verificationTokens = pgTable(
     {
         identifier: varchar("identifier", { length: 191 }).primaryKey().notNull(),
         token: varchar("token", { length: 191 }).notNull(),
-        expires: date("expires").notNull(),
+        expires: timestamp("expires").notNull(),
         created_at: timestamp("created_at").notNull().defaultNow(),
+        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (verificationToken) => ({
         tokenIndex: uniqueIndex("verification_tokens__token__idx").on(
