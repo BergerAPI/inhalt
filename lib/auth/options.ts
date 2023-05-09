@@ -3,6 +3,8 @@ import GithubProvider from "next-auth/providers/github";
 import { env } from "@/lib/env.mjs"
 import { DrizzleAdapter } from "@/lib/auth/adapter";
 import { database } from "@/lib/database"
+import { sessions, users } from "../database/schema";
+import { InferModel } from "drizzle-orm";
 
 export const authOptions: NextAuthOptions = {
     adapter: DrizzleAdapter(database),
@@ -20,4 +22,4 @@ export const authOptions: NextAuthOptions = {
     }
 };
 
-export const getServerSideSession = async () => await getServerSession(authOptions)
+export const getServerSideSession = async () => await getServerSession<NextAuthOptions, { user?: InferModel<typeof users> }>(authOptions)

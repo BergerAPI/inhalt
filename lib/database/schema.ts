@@ -5,9 +5,18 @@ import {
     pgTable, text, timestamp, uniqueIndex, varchar
 } from "drizzle-orm/pg-core";
 
-/**
- * Schema definitions
- */
+export const projects = pgTable(
+    "projects",
+    {
+        id: varchar("id", { length: 191 }).primaryKey().notNull(),
+        owner_id: varchar("id", { length: 191 }).notNull(),
+        name: text("name"),
+        created_at: timestamp("created_at").notNull().defaultNow(),
+    }, (project) => ({
+        nameIndex: index("projects__name__idx").on(project.name)
+    })
+)
+
 export const users = pgTable(
     "users",
     {
@@ -17,7 +26,6 @@ export const users = pgTable(
         emailVerified: timestamp("emailVerified"),
         image: varchar("image", { length: 191 }),
         created_at: timestamp("created_at").notNull().defaultNow(),
-        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (user) => ({
         emailIndex: uniqueIndex("users__email__idx").on(user.email),
@@ -43,7 +51,6 @@ export const accounts = pgTable(
         scope: varchar("scope", { length: 191 }),
         token_type: varchar("token_type", { length: 191 }),
         createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (account) => ({
         providerProviderAccountIdIndex: uniqueIndex(
@@ -61,7 +68,6 @@ export const sessions = pgTable(
         userId: varchar("userId", { length: 191 }).notNull(),
         expires: timestamp("expires").notNull(),
         created_at: timestamp("created_at").notNull().defaultNow(),
-        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (session) => ({
         sessionTokenIndex: uniqueIndex("sessions__sessionToken__idx").on(
@@ -78,7 +84,6 @@ export const verificationTokens = pgTable(
         token: varchar("token", { length: 191 }).notNull(),
         expires: timestamp("expires").notNull(),
         created_at: timestamp("created_at").notNull().defaultNow(),
-        updated_at: timestamp("updated_at").notNull().defaultNow(),
     },
     (verificationToken) => ({
         tokenIndex: uniqueIndex("verification_tokens__token__idx").on(
