@@ -1,5 +1,5 @@
 import AuthForm from "@/components/auth-form";
-import { getServerSideSession } from "@/lib/auth/options";
+import { getUser } from "@/lib/auth/options";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -9,9 +9,9 @@ export const metadata = {
 };
 
 export default async function SignUp() {
-  const session = await getServerSideSession()
+  const user = await getUser()
 
-  if (session !== null)
+  if (user !== null)
     return redirect("/app")
 
   return (

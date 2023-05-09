@@ -4,7 +4,7 @@ import { env } from "@/lib/env.mjs"
 import { DrizzleAdapter } from "@/lib/auth/adapter";
 import { database } from "@/lib/database"
 import { sessions, users } from "../database/schema";
-import { InferModel } from "drizzle-orm";
+import { InferModel, eq } from "drizzle-orm";
 
 export const authOptions: NextAuthOptions = {
     adapter: DrizzleAdapter(database),
@@ -22,4 +22,14 @@ export const authOptions: NextAuthOptions = {
     }
 };
 
-export const getServerSideSession = async () => await getServerSession<NextAuthOptions, { user?: InferModel<typeof users> }>(authOptions)
+export const getUser = async () => {
+    const session = await getServerSession(authOptions)
+
+    if (session === null || session.user === undefined)
+        return null
+
+    return (await database.select()
+        .from(users)
+        .where(eq(users.email, session.user.email ?? ""))
+        .limit(1))[0]
+}

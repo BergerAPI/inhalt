@@ -1,5 +1,4 @@
 import {
-    date,
     index,
     integer,
     pgTable, text, timestamp, uniqueIndex, varchar
@@ -9,7 +8,7 @@ export const projects = pgTable(
     "projects",
     {
         id: varchar("id", { length: 191 }).primaryKey().notNull(),
-        owner_id: varchar("id", { length: 191 }).notNull(),
+        owner_id: varchar("owner_id", { length: 191 }).notNull(),
         name: text("name"),
         created_at: timestamp("created_at").notNull().defaultNow(),
     }, (project) => ({

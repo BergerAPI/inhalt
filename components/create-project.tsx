@@ -12,6 +12,7 @@ import {
 import { Loader2, Plus } from "lucide-react"
 import { useState } from "react"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
@@ -55,11 +56,18 @@ const CreateProject = () => {
                 </DialogHeader>
 
                 <div className="space-y-4 py-2 pb-4">
+                    {(errors.plan || errors.name) && <Alert variant="destructive">
+                        <AlertTitle>Error</AlertTitle>
+                        <AlertDescription>
+                            Please make sure you selected a plan and the name is longer than 3 chars.
+                        </AlertDescription>
+                    </Alert>}
+
                     <div className="space-y-2">
                         <Label htmlFor="name">
                             Name
                         </Label>
-                        <Input id="name" {...register("name")} />
+                        <Input id="name" {...register("name", { minLength: 3 })} />
                     </div>
 
                     <div className="space-y-2">
@@ -70,6 +78,7 @@ const CreateProject = () => {
                         <Controller
                             name="plan"
                             control={control}
+                            rules={{ required: true }}
                             render={({ field }) => (
                                 <Select
                                     value={field.value}
