@@ -1,4 +1,7 @@
 import { TopNav } from "@/components/nav"
+import { UserAvatar } from "@/components/user-avatar"
+import { getUser } from "@/lib/auth/options"
+import { redirect } from "next/navigation"
 
 export default async function ProjectLayout({ children, params: { id } }: { children: React.ReactNode, params: { id: string } }) {
     const items = [
@@ -7,8 +10,23 @@ export default async function ProjectLayout({ children, params: { id } }: { chil
         { title: "Settings", href: `/app/project/${id}/settings` }
     ]
 
+    const user = await getUser()
+
+    if (user === null)
+        return redirect("/auth/signin")
+
     return (
-        <>
+        <div className="flex min-h-screen flex-col">
+            <header className="sticky top-0 border-b bg-background">
+                <div className="container flex h-16 items-center justify-between py-4">
+                    <div>
+                        Inhalt
+                    </div>
+
+                    <UserAvatar user={user} />
+                </div>
+            </header>
+
             <header className="sticky top-0 border-b bg-background">
                 <div className="container flex items-center py-2">
                     <TopNav items={items} />
@@ -18,6 +36,6 @@ export default async function ProjectLayout({ children, params: { id } }: { chil
             <div className="container mt-6">
                 {children}
             </div>
-        </>
+        </div>
     )
 }
