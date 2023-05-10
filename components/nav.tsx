@@ -64,7 +64,7 @@ export function TopNav({ items }: TopNavProps) {
     }
 
     return (
-        <>
+        <div className="flex gap-3">
             {items.map((item, index) => {
                 return (
                     item.href && (
@@ -81,6 +81,6 @@ export function TopNav({ items }: TopNavProps) {
                     )
                 )
             })}
-        </>
+        </div>
     )
 }
