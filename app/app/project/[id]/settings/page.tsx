@@ -1,9 +1,6 @@
 import { DeleteProject } from "@/components/delete-project";
-import { Button } from "@/components/ui/button";
 import { getUser } from "@/lib/auth/options";
-import { database } from "@/lib/database";
-import { projects } from "@/lib/database/schema";
-import { eq, and } from "drizzle-orm";
+import { getProject } from "@/lib/projects";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -18,18 +15,10 @@ const ProjectSettings = async ({ params: { id } }: Props) => {
     if (user === null)
         return redirect("/auth/signin")
 
-    const rows = await database
-        .select()
-        .from(projects)
-        .where(and(
-            eq(projects.id, id),
-            eq(projects.owner_id, user.id)
-        ))
+    const project = await getProject(id, user.id)
 
-    if (rows.length < 1)
+    if (project === null)
         return redirect("/app")
-
-    const project = rows[0]
 
     return <>
         <DeleteProject project={project} />
