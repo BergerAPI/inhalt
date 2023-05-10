@@ -9,8 +9,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         return redirect("/auth/signin")
 
     return (
-        <div className="flex min-h-screen flex-col space-y-6">
-            <header className="sticky top-0 z-40 border-b bg-background">
+        <div className="flex min-h-screen flex-col">
+            <header className="sticky top-0 border-b bg-background">
                 <div className="container flex h-16 items-center justify-between py-4">
                     <div>
                         Inhalt
@@ -20,11 +20,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
                 </div>
             </header>
 
-            <div className="container">
-                <main className="flex w-full flex-1 flex-col overflow-hidden">
-                    {children}
-                </main>
-            </div>
+            {children}
         </div>
     )
 }
