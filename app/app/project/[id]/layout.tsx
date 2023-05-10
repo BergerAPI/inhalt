@@ -1,6 +1,6 @@
 import { TopNav } from "@/components/nav"
 
-export default async function AppLayout({ children, params: { id } }: { children: React.ReactNode, params: { id: string } }) {
+export default async function ProjectLayout({ children, params: { id } }: { children: React.ReactNode, params: { id: string } }) {
     const items = [
         { title: "Overview", href: `/app/project/${id}` },
         { title: "Models", href: `/app/project/${id}/models` },
