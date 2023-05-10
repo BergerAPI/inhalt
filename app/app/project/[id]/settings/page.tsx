@@ -1,3 +1,5 @@
+import { DeleteProject } from "@/components/delete-project";
+import { Button } from "@/components/ui/button";
 import { getUser } from "@/lib/auth/options";
 import { database } from "@/lib/database";
 import { projects } from "@/lib/database/schema";
@@ -10,7 +12,7 @@ interface Props {
     }
 }
 
-const Project = async ({ params: { id } }: Props) => {
+const ProjectSettings = async ({ params: { id } }: Props) => {
     const user = await getUser()
 
     if (user === null)
@@ -30,8 +32,8 @@ const Project = async ({ params: { id } }: Props) => {
     const project = rows[0]
 
     return <>
-        {project.name}
+        <DeleteProject project={project} />
     </>
 }
 
-export default Project;
+export default ProjectSettings;
