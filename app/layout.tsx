@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 export const metadata = {
@@ -12,7 +13,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='w-screen h-screen'>{children}</body>
+      <body className='w-screen h-screen'>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
