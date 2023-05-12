@@ -8,11 +8,35 @@ export const projects = pgTable(
     "projects",
     {
         id: varchar("id", { length: 191 }).primaryKey().notNull(),
-        owner_id: varchar("owner_id", { length: 191 }).notNull(),
+        owner_id: varchar("owner_id", { length: 191 }).notNull().references(() => users.id),
         name: text("name").notNull(),
         created_at: timestamp("created_at").notNull().defaultNow(),
     }, (project) => ({
         nameIndex: index("projects__name__idx").on(project.name)
+    })
+)
+
+export const models = pgTable(
+    "models",
+    {
+        id: varchar("id", { length: 191 }).primaryKey().notNull(),
+        project_id: varchar("project_id", { length: 191 }).notNull().references(() => projects.id),
+        name: text("name").notNull(),
+        created_at: timestamp("created_at").notNull().defaultNow(),
+    }, (model) => ({
+        nameIndex: index("models__name__idx").on(model.name)
+    })
+)
+
+export const modelKeys = pgTable(
+    "models_keys",
+    {
+        id: varchar("id", { length: 191 }).primaryKey().notNull(),
+        model_id: varchar("model_id", { length: 191 }).notNull().references(() => models.id),
+        name: text("name").notNull(),
+        type: text("type").notNull(),
+    }, (model) => ({
+        nameIndex: index("models__name__idx").on(model.name)
     })
 )
 
