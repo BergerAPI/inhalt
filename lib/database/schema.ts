@@ -34,7 +34,9 @@ export const modelKeys = pgTable(
     "models_keys",
     {
         id: varchar("id", { length: 191 }).primaryKey().notNull(),
-        model_id: varchar("model_id", { length: 191 }).notNull().references(() => models.id),
+        model_id: varchar("model_id", { length: 191 }).notNull().references(() => models.id, {
+            onDelete: "cascade"
+        }),
         name: text("name").notNull(),
         type: text("type").notNull(),
     }, (modelKey) => ({
