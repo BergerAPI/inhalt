@@ -27,7 +27,7 @@ export async function POST(request: Request, { params: { id } }: { params: { id:
     if (project === null)
         return NextResponse.json({ error: "Not Found" }, { status: 404 })
 
-    await database
+    const model = await database
         .insert(models)
         .values({
             id: cuid.createId(),
@@ -36,5 +36,5 @@ export async function POST(request: Request, { params: { id } }: { params: { id:
         })
         .returning()
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json(model[0])
 }

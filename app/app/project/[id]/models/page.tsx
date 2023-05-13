@@ -24,9 +24,8 @@ const ProjectModels = async ({ params: { id } }: Props) => {
 
     const models = await getProjectModels(project.id)
 
-    return <div>
+    return <div className="space-y-2">
         <CreateModel projectId={project.id} />
-
         <DataTable columns={columns} data={models} />
     </div>
 }

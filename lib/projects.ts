@@ -28,3 +28,18 @@ export const getProjectModels = async (id: string) => {
 
     return rows
 }
+
+/**
+ * Getting a project by its id
+ */
+export const getModel = async (id: string, projectId?: string) => {
+    const rows = await database
+        .select()
+        .from(models)
+        .where(and(
+            eq(models.id, id),
+            projectId === undefined ? sql`true` : eq(models.project_id, projectId)
+        ))
+
+    return rows[0]
+}

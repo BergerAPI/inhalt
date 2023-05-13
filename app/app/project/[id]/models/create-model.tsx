@@ -56,7 +56,7 @@ export const CreateModel = ({ projectId }: Props) => {
 
     return <Dialog>
         <DialogTrigger asChild>
-            <Button variant="outline">Create Project</Button>
+            <Button variant="outline">Create Model</Button>
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[425px]">
