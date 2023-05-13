@@ -20,7 +20,9 @@ export const models = pgTable(
     "models",
     {
         id: varchar("id", { length: 191 }).primaryKey().notNull(),
-        project_id: varchar("project_id", { length: 191 }).notNull().references(() => projects.id),
+        project_id: varchar("project_id", { length: 191 }).notNull().references(() => projects.id, {
+            onDelete: "cascade"
+        }),
         name: text("name").notNull(),
         created_at: timestamp("created_at").notNull().defaultNow(),
     }, (model) => ({
@@ -35,8 +37,8 @@ export const modelKeys = pgTable(
         model_id: varchar("model_id", { length: 191 }).notNull().references(() => models.id),
         name: text("name").notNull(),
         type: text("type").notNull(),
-    }, (model) => ({
-        nameIndex: index("models__name__idx").on(model.name)
+    }, (modelKey) => ({
+        nameIndex: index("model__keys__name__idx").on(modelKey.name)
     })
 )
 
