@@ -1,7 +1,7 @@
 import { getUser } from "@/lib/auth/options";
 import { getProject, getProjectModels } from "@/lib/projects";
 import { redirect } from "next/navigation";
-import { CreateModel } from "./create-model";
+import { CreateModel } from "../../../../../components/create-model";
 import { DataTable } from "./data-table";
 import { columns } from "./columns"
 
